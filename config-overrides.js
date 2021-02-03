@@ -8,7 +8,7 @@ module.exports = override(
   addLessLoader({
     lessOptions: {
       javascriptEnabled: true,
-      modifyVars: { "@primary-color": "green", }, // 将antd中的主颜色蓝色改变为橙色
+      modifyVars: { "@primary-color": "green", }, // 将antd中的主颜色蓝色改变为绿色
     },
   })
 );

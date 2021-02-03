@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 
-import { Form, Input, Button } from "antd";
+import { Form, Input, Button, message } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 
 import "./login.less";
-import logo from './img/logo.png'
+import logo from "./img/logo.png";
+
+import { reqLogin } from "../../api";
 
 class Login extends Component {
   constructor(props) {
@@ -12,16 +14,35 @@ class Login extends Component {
     this.state = {};
   }
 
-  onFinish = (values) => {
-    console.log('Received values of form: ', values);
+  onFinish = async(values) => {
+    const { username, password } = values;
+    const data = await reqLogin(username, password);
+    console.log("请求成功", data);
+
+    if(data.status===0){
+      message.success('登录成功')
+      this.props.history.replace('/')
+
+    }else{
+      message.error(data.msg)
+    }
+
+
+    //console.log('Received values of form: ', values);
+  };
+
+  onFinishFailed = (values, errorFields, outOfDate) => {
+    console.log(values);
+    console.log(errorFields);
+    console.log(outOfDate);
   };
 
   render() {
     return (
       <div className="login">
         <header className="login-header">
-          <img src={logo} alt="logo"/>
-          <h1>React项目：后台管理系统</h1>
+          <img src={logo} alt="logo" />
+          <h1>奥莱React项目：后台管理系统</h1>
         </header>
         <section className="login-content">
           <h2>用户登录</h2>
@@ -30,11 +51,18 @@ class Login extends Component {
             className="login-form"
             initialValues={{ remember: true }}
             onFinish={this.onFinish}
+            onFinishFailed={this.onFinishFailed}
           >
             <Form.Item
               name="username"
               rules={[
-                { required: true, message: "Please input your Username!" },
+                { required: true, message: "请输入用户名" },
+                { required: true, min: 4, message: "最小4位" },
+                { required: true, max: 12, message: "最大12位" },
+                {
+                  pattern: /^[a-zA-Z0-9_]+$/,
+                  message: "必须是英文、数字或下划线组成",
+                },
               ]}
             >
               <Input
@@ -62,7 +90,6 @@ class Login extends Component {
               >
                 登录
               </Button>
-              
             </Form.Item>
           </Form>
         </section>
@@ -70,6 +97,5 @@ class Login extends Component {
     );
   }
 }
-
 
 export default Login;
