@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-//import { Link } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 
+import memoryUtils from '../../utils/memoryUtils'
 
 class Admin extends Component {
     constructor(props) {
@@ -8,9 +9,15 @@ class Admin extends Component {
         this.state = {  }
     }
     render() { 
+        const user = memoryUtils.user;
+
+        if(!user || !user._id){
+            return <Redirect to='/login'></Redirect>
+        }
+
         return ( 
             <div>
-                admin
+                { user._id + " " + user.username + " " +user.password }
             </div>
 
         );

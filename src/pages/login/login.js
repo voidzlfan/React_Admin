@@ -7,6 +7,7 @@ import "./login.less";
 import logo from "./img/logo.png";
 
 import { reqLogin } from "../../api";
+import memoryUtils from '../../utils/memoryUtils'
 
 class Login extends Component {
   constructor(props) {
@@ -16,15 +17,19 @@ class Login extends Component {
 
   onFinish = async(values) => {
     const { username, password } = values;
-    const data = await reqLogin(username, password);
-    console.log("请求成功", data);
+    const result = await reqLogin(username, password);
+    //console.log("请求成功", result);
 
-    if(data.status===0){
+    if(result.status===0){
       message.success('登录成功')
+      const user = result.data;
+      memoryUtils.user = user;
       this.props.history.replace('/')
+      console.log("请求成功", result);
 
     }else{
-      message.error(data.msg)
+      message.error(result.msg);
+      console.log("请求失败", result);
     }
 
 
