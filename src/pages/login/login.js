@@ -3,11 +3,15 @@ import React, { Component } from "react";
 import { Form, Input, Button, message } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 
+import { Redirect } from 'react-router-dom'
+
 import "./login.less";
 import logo from "./img/logo.png";
 
 import { reqLogin } from "../../api";
 import memoryUtils from '../../utils/memoryUtils'
+import storageUtils from '../../utils/storageUtils'
+
 
 class Login extends Component {
   constructor(props) {
@@ -24,6 +28,9 @@ class Login extends Component {
       message.success('登录成功')
       const user = result.data;
       memoryUtils.user = user;
+
+      storageUtils.saveUser(user);
+
       this.props.history.replace('/')
       console.log("请求成功", result);
 
@@ -43,6 +50,11 @@ class Login extends Component {
   };
 
   render() {
+    const user = memoryUtils.user
+    if(user && user._id ){
+      return <Redirect to="/"></Redirect>
+    }
+
     return (
       <div className="login">
         <header className="login-header">
