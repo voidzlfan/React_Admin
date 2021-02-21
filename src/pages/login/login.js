@@ -9,8 +9,8 @@ import "./login.less";
 import logo from "../../assets/images/logo.png";
 
 import { reqLogin } from "../../api";
-import memoryUtils from '../../utils/memoryUtils'
-import storageUtils from '../../utils/storageUtils'
+import { user as memoryUtils } from '../../utils/memoryUtils'
+import { storage as storageUtils} from '../../utils/storageUtils'
 
 
 class Login extends Component {

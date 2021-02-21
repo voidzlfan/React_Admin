@@ -16,7 +16,7 @@ class LeftNav extends Component {
     this.state = {};
   }
 
-  componentWillMount(){
+  UNSAFE_componentWillMount(){
     this.menuNodes = this.getMenuNodes(menuList);
   }
 

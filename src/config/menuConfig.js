@@ -4,7 +4,7 @@ import {
     SettingOutlined,
     ShopOutlined,
     AreaChartOutlined,
-    ScheduleOutlined,
+    //ScheduleOutlined,
 } from '@ant-design/icons';
 
 const menuList = [
@@ -66,11 +66,11 @@ const menuList = [
       ]
     },
   
-    {
-      title: '订单管理',
-      key: '/order',
-      icon: <ScheduleOutlined />,
-    },
+    // {
+    //   title: '订单管理',
+    //   key: '/order',
+    //   icon: <ScheduleOutlined />,
+    // },
   ]
 
 

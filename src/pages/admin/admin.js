@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Redirect, Switch, Route } from "react-router-dom";
 import { Layout } from "antd";
-import memoryUtils from "../../utils/memoryUtils";
+import { user as memoryUtils } from "../../utils/memoryUtils";
 
 import Header from '../../components/header'
 import LeftNva from '../../components/left-nav'
@@ -37,7 +37,7 @@ class Admin extends Component {
         </Sider>
         <Layout>
           <Header/>
-          <Content style={{backgroundColor: '#fff'}}>
+          <Content style={{margin: 20, backgroundColor: '#fff'}}>
             <Switch>
               <Route path='/home' component={Home} />
               <Route path='/category' component={Category} />
