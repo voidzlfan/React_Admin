@@ -50,7 +50,7 @@ class Admin extends Component {
               <Redirect to='/home' />
             </Switch>
           </Content>
-          <Footer style={{textAlign:'center'}}>推荐使用Google浏览器，可以获得更佳页面操作</Footer>
+          <Footer style={{textAlign:'center'}}>推荐使用Google浏览器，可以获得更佳页面操作体验</Footer>
         </Layout>
       </Layout>
     );
