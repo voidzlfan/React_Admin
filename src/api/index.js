@@ -1,13 +1,15 @@
-import ajax from "./ajax";
-import jsonp from "jsonp";
-import { message } from "antd";
+import ajax from './ajax';
+import jsonp from 'jsonp';
+import { message } from 'antd';
+
+const BASE = '';
 
 // 登录
 export const reqLogin = (username, password) =>
-  ajax("/login", { username, password }, "POST");
+  ajax('/login', { username, password }, 'POST');
 
 // 添加用户
-export const reqAddUser = (user) => ajax("/login", user, "POST");
+export const reqAddUser = (user) => ajax(BASE + '/login', user, 'POST');
 
 //jsonp请求天气
 export const reqWeather = () => {
@@ -16,11 +18,11 @@ export const reqWeather = () => {
     const url = `https://restapi.amap.com/v3/weather/weatherInfo?city=${cityCode}&key=0cd74b48e662a1477f7f7fac2257ce9d`;
     jsonp(url, {}, (err, data) => {
       //console.log(err, data);
-      if (!err && data.info === "OK") {
+      if (!err && data.info === 'OK') {
         //console.log(data.lives[0].weather);
         resolve(data.lives[0]);
       } else {
-        message.error("获取天气失败！");
+        message.error('获取天气失败！');
       }
     });
   });
@@ -39,3 +41,13 @@ jsonp解决ajax跨域的原理
    浏览器端:
       收到响应自动执行函数调用的js代码, 也就执行了提前定义好的回调函数, 并得到了需要的结果数据
  */
+
+// 获取一级/二级分类列表
+export const reqCategorys = parentId => ajax(BASE + '/manage/category/list',{ parentId: parentId })
+
+// 添加分类
+export const reqAddCategory = (categoryName, parentId) => ajax(BASE + '/manage/category/add',{ categoryName, parentId },'POST')
+
+// 更新分类名
+export const reqUpdateCategory = ({ categoryName, parentId }) => ajax(BASE + '/manage/category/update',{ categoryName, parentId },'POST')
+

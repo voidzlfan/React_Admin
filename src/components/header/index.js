@@ -57,6 +57,8 @@ class Header extends Component {
         //title: 'Do you Want to delete these items?',
         icon: <ExclamationCircleOutlined />,
         content: '确定退出吗？',
+        cancelText: '取消',
+        okText: '确定',
         onOk: () => {
           //console.log('OK');
           storageUtils.removeUser();
