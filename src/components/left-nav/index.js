@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 
-import logo from "../../assets/images/logo.png";
+import aurolite from "../../assets/images/aurolite.png";
 import "./index.less";
 
 import { Menu } from "antd";
@@ -34,7 +34,7 @@ class LeftNav extends Component {
         );
       } else {
 
-        const cItem = item.children.find(cItem=>cItem.key === pathName);
+        const cItem = item.children.find(cItem=>cItem.key.includes('/product'));
         if(cItem){
           this.openKey = item.key;
         } 
@@ -51,13 +51,16 @@ class LeftNav extends Component {
   render() {
 
     const { openKey, menuNodes } = this;
-    const pathName = this.props.location.pathname || '/home';
+    let pathName = this.props.location.pathname || '/home';
+    if(pathName.includes('/product')){
+      pathName = '/product'
+    }
 
     return (
       <div className="left-nav">
         <Link to="/home" className="left-nav-header">
-          <img src={logo} alt="logo" />
-          <h1>奥莱后台</h1>
+          <img src={aurolite} alt="logo" />
+          {/* <h1>奥莱后台</h1> */}
         </Link>
         <Menu
           selectedKeys={[pathName]}

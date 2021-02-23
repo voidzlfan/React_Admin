@@ -25,6 +25,7 @@ class Header extends Component {
   getTime = () => {
     this.intervalId = setInterval(() => {
       const currentTime = formateDate(Date.now());
+      //console.log(currentTime);
       this.setState({ currentTime });
     }, 1000);
   };

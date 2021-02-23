@@ -51,4 +51,15 @@ export const reqAddCategory = (categoryName, parentId) => ajax(BASE + '/manage/c
 // 更新分类名
 export const reqUpdateCategory = ({ parentId, categoryName }) => ajax(BASE + '/manage/category/update',{ categoryId: parentId, categoryName },'POST')
 
+// 获取分类
+export const reqCategory = categoryId => ajax(BASE + '/manage/category/info',{categoryId})
 
+// 获取商品分页列表
+export const reqProducts = (pageNum, pageSize) => ajax(BASE + '/manage/product/list',{ pageNum, pageSize })
+
+// 更新商品状态 上架/下架
+export const reqUpdateStatus = (productId, status) => ajax(BASE + '/manage/product/updateStatus',{ productId, status },'POST')
+
+// 搜索商品分页列表 searchType 搜索类型 productName/productDesc
+export const reqSearchProducts = ({ pageNum, pageSize=2, searchName, searchType }) => 
+  ajax(BASE + '/manage/product/search',{ pageNum, pageSize, [searchType]: searchName })

@@ -145,7 +145,6 @@ class Category extends Component {
   showUpdate = (category) => {
     // 保存分类对象
     this.category = category;
-
     this.setState({
       showStatus: 2,
     });
