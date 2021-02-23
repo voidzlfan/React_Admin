@@ -120,9 +120,7 @@ class Category extends Component {
           showStatus: 0,
         });
         // 2.收集数据，发送请求
-        const { parentId, categoryName } = this.form.getFieldsValue(
-          "categoryName"
-        );
+        const { parentId, categoryName } = values;
         // console.log(parentId);
         // console.log(categoryName);
         const result = await reqAddCategory(categoryName, parentId);
