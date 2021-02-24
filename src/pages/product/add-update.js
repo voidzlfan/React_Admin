@@ -7,6 +7,9 @@ const { TextArea } = Input;
 
 // product的添加和更新子路由
 class ProductAddUpdate extends Component {
+
+  formRef = React.createRef();
+
   onFinish = (values) => {
     console.log(values);
   };
@@ -28,7 +31,7 @@ class ProductAddUpdate extends Component {
     );
     return (
       <Card title={title}>
-        <Form {...formItemLayout} onFinish={this.onFinish}>
+        <Form ref={this.formRef} {...formItemLayout} onFinish={this.onFinish} >
           <Item
             name="name"
             label="商品名称"
@@ -37,7 +40,7 @@ class ProductAddUpdate extends Component {
           >
             <Input
               placeholder="请输入商品名称"
-              style={{ width: 200, marginLeft: 10 }}
+              style={{ width: 300, marginLeft: 10 }}
             />
           </Item>
           <Item
@@ -60,28 +63,28 @@ class ProductAddUpdate extends Component {
               min={1}
               max={99999999}
               placeholder="请输入商品价格"
-              style={{ width: 200, marginLeft: 10 }}
+              style={{ width: 300, marginLeft: 10 }}
             />
           </Item>
           <Item label="商品分类">
             <Input
               type="number"
               placeholder="请选择商品分类"
-              style={{ width: 200, marginLeft: 10 }}
+              style={{ width: 300, marginLeft: 10 }}
             />
           </Item>
           <Item label="商品图片">
             <Input
               type="number"
               placeholder="请上传商品图片"
-              style={{ width: 200, marginLeft: 10 }}
+              style={{ width: 300, marginLeft: 10 }}
             />
           </Item>
           <Item label="商品详情">
-            <Input
-              type="number"
+            <TextArea
+              autoSize={{ minRows: 4, maxRows: 6 }}
               placeholder="请输入商品详情"
-              style={{ width: 200, marginLeft: 10 }}
+              style={{ width: 300, marginLeft: 10 }}
             />
           </Item>
           <Item>

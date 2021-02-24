@@ -34,11 +34,13 @@ class LeftNav extends Component {
         );
       } else {
 
+        // 显示菜单展开逻辑判断
         const cItem = item.children.find(cItem=>cItem.key.includes('/product'));
+        console.log('cItem',cItem);
         if(cItem){
           this.openKey = item.key;
-        } 
-
+        }
+        
         return (
           <SubMenu key={item.key} icon={item.icon} title={item.title}>
             {this.getMenuNodes(item.children)}
