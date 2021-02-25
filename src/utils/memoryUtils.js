@@ -1,3 +1,5 @@
-export default {
-    user: {}
-}
+// export default {
+//     user: {}
+// }
+
+export const user = { user:{} }
