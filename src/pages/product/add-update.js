@@ -4,9 +4,7 @@ import {
   Form,
   Input,
   Cascader,
-  Upload,
   Button,
-  InputNumber,
   message,
 } from "antd";
 import { LeftOutlined } from "@ant-design/icons";
@@ -25,6 +23,13 @@ class ProductAddUpdate extends Component {
   state = {
     options: [],
   };
+
+  constructor (props) {
+    super(props)
+    // 创建用来保存ref标识的标签对象的容器
+    this.pw = React.createRef()
+    this.editor = React.createRef()
+  }
 
   // 初始化options数组
   initOptions = async (categorys) => {
@@ -113,6 +118,7 @@ class ProductAddUpdate extends Component {
 
   onFinish = (values) => {
     console.log(values);
+    console.log("img",this.pw.current.getImgs());
   };
 
   UNSAFE_componentWillMount() {
@@ -134,6 +140,7 @@ class ProductAddUpdate extends Component {
   render() {
     const { options } = this.state;
     const { isUpdate, product } = this;
+    //console.log(product);
     // 接收级联分类ID的数组
     const categoryIds = [];
     if (isUpdate) {
@@ -223,7 +230,7 @@ class ProductAddUpdate extends Component {
             />
           </Item>
           <Item label="商品图片">
-            <PicturesWall/>
+            <PicturesWall ref={this.pw} imgs={product.imgs}/>
           </Item>
           <Item label="商品详情">
             <TextArea

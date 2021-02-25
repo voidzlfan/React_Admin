@@ -63,3 +63,8 @@ export const reqUpdateStatus = (productId, status) => ajax(BASE + '/manage/produ
 // 搜索商品分页列表 searchType 搜索类型 productName/productDesc
 export const reqSearchProducts = ({ pageNum, pageSize=2, searchName, searchType }) => 
   ajax(BASE + '/manage/product/search',{ pageNum, pageSize, [searchType]: searchName })
+
+
+// 删除上传的图片
+export const reqDeleteImg = (name) => ajax(BASE + '/manage/img/delete',{name},'POST')
+

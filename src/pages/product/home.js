@@ -115,9 +115,9 @@ class ProductHome extends Component {
   // 更新指定商品状态 上架/下架
   updateState = async (productId, status) => {
     const result = await reqUpdateStatus(productId, status);
-    console.log("productId", productId);
-    console.log("status", status);
-    console.log("result", result);
+    // console.log("productId", productId);
+    // console.log("status", status);
+    // console.log("result", result);
     if (result.status === 0) {
       message.success("更新商品状态成功");
       this.getProducts(this.pageNum);
