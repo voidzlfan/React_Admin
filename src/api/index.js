@@ -72,5 +72,5 @@ export const reqDeleteImg = (name) => ajax(BASE + '/manage/img/delete',{name},'P
 // 添加商品 或者 修改商品
 export const reqAddUpdateProduct = (product) => ajax(BASE + '/manage/product/' + (product._id ? 'update' : 'add'),product,'POST')
 
-// 更新商品
-
+// 获取所有角色的列表
+export const reqRoles = () => ajax(BASE + '/manage/role/list')
