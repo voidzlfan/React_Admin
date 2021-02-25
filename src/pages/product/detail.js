@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Card, Button, List } from "antd";
+import { Card, Button, List, Image } from "antd";
 import { LeftOutlined } from "@ant-design/icons";
 
 import { BASE_IMG_URL } from "../../utils/constants";
@@ -100,9 +100,10 @@ class ProductDetail extends Component {
           <List.Item>
             <span className="left">商品图片：</span>
             {imgs.map((img) => (
-              <img
+              <Image
                 key={img}
-                className="product-img"
+                //className="product-img"
+                width={200}
                 alt="img"
                 src={BASE_IMG_URL + img}
               />

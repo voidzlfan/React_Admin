@@ -68,3 +68,9 @@ export const reqSearchProducts = ({ pageNum, pageSize=2, searchName, searchType 
 // 删除上传的图片
 export const reqDeleteImg = (name) => ajax(BASE + '/manage/img/delete',{name},'POST')
 
+
+// 添加商品 或者 修改商品
+export const reqAddUpdateProduct = (product) => ajax(BASE + '/manage/product/' + (product._id ? 'update' : 'add'),product,'POST')
+
+// 更新商品
+

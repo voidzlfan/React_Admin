@@ -9,9 +9,10 @@ import {
 } from "antd";
 import { LeftOutlined } from "@ant-design/icons";
 
-import PicturesWall from './pictures-wall'
+import PicturesWall from './pictures-wall';
+import RichTextEdit from './rich-text-editor';
 
-import { reqCategorys } from "../../api";
+import { reqCategorys, reqAddUpdateProduct } from "../../api";
 
 const { Item } = Form;
 const { TextArea } = Input;
@@ -116,9 +117,36 @@ class ProductAddUpdate extends Component {
     //console.log(value, selectedOptions);
   };
 
-  onFinish = (values) => {
-    console.log(values);
-    console.log("img",this.pw.current.getImgs());
+  onFinish = async(values) => {
+    // console.log(values);
+    // console.log("img",this.pw.current.getImgs());
+    // console.log("richTextEditor",this.editor.current.getDetail());
+    const { name, desc, price, categoryIds } = values;
+    const imgs = this.pw.current.getImgs()
+    const detail = this.editor.current.getDetail()
+    let pCategoryId, categoryId;
+    if(categoryIds.length ===1){
+      pCategoryId = '0';
+      categoryId = categoryIds[0]
+    }else{
+      pCategoryId = categoryIds[0];
+      categoryId = categoryIds[1];
+    }
+
+    const product = {
+      name, desc, price, imgs, detail, pCategoryId, categoryId
+    }
+    if(this.isUpdate){
+      product._id = this.product._id;
+    }
+    const result = await reqAddUpdateProduct(product);
+    if(result.status === 0){
+      message.success(`${this.isUpdate?'更新':'添加'}商品成功`)
+      this.props.history.goBack()
+    }else{
+      message.error(`${this.isUpdate?'更新':'添加'}商品失败`)
+    }
+
   };
 
   UNSAFE_componentWillMount() {
@@ -233,11 +261,7 @@ class ProductAddUpdate extends Component {
             <PicturesWall ref={this.pw} imgs={product.imgs}/>
           </Item>
           <Item label="商品详情">
-            <TextArea
-              autoSize={{ minRows: 4, maxRows: 6 }}
-              placeholder="请输入商品详情"
-              style={{ width: 300, marginLeft: 10 }}
-            />
+            <RichTextEdit ref={this.editor} detail={product.detail}/>
           </Item>
           <Item>
             <Button type="primary" htmlType="submit">
