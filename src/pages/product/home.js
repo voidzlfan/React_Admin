@@ -69,7 +69,13 @@ class ProductHome extends Component {
               >
                 详情
               </LinkButton>
-              <LinkButton>修改</LinkButton>
+              <LinkButton
+                onClick={() =>
+                  this.props.history.push("/product/addupdate", { product })
+                }
+              >
+                修改
+              </LinkButton>
             </span>
           );
         },
@@ -128,7 +134,6 @@ class ProductHome extends Component {
 
   render() {
     const { total, products, loading, searchName, searchType } = this.state;
-
     const title = (
       <span>
         <Select
@@ -150,7 +155,11 @@ class ProductHome extends Component {
       </span>
     );
     const extra = (
-      <Button type="primary" icon={<PlusOutlined />} onClick={()=> this.props.history.push('/product/addupdate')}>
+      <Button
+        type="primary"
+        icon={<PlusOutlined />}
+        onClick={() => this.props.history.push("/product/addupdate")}
+      >
         添加商品
       </Button>
     );
