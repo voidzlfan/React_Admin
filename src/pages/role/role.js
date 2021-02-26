@@ -1,13 +1,20 @@
 import React, { Component } from "react";
-import { Card, Button, Table, Space, Modal } from "antd";
+import { Card, Button, Table, Space, Modal, message } from "antd";
 import AddForm from "./add-form";
+import AuthForm from "./auth-form";
 
 import { PlusOutlined } from "@ant-design/icons";
 import { PAGE_SIZE } from "../../utils/constants";
 
-import { reqRoles } from "../../api";
+import { reqRoles, reqAddRole, reqUpdateRole } from "../../api";
+
+import { user as memoryUtils } from '../../utils/memoryUtils' 
+import { formateDate } from '../../utils/dateUtils' 
 
 class Role extends Component {
+
+  auth = React.createRef();
+
   constructor(props) {
     super(props);
     this.state = {
@@ -31,11 +38,13 @@ class Role extends Component {
         title: "创建时间",
         dataIndex: "create_time",
         key: "name",
+        render: formateDate
       },
       {
         title: "授权时间",
         dataIndex: "auth_time",
         key: "auth_time",
+        render: (create_time) => formateDate(create_time)
       },
       {
         title: "授权人",
@@ -58,17 +67,57 @@ class Role extends Component {
   };
 
   onRow = (role) => {
-    console.log(role);
     return {
       onClick: (event) => {
+        //console.log(role);
         this.setState({ role });
       }, // 点击行
     };
   };
 
-  addRole = () => {};
+  addRole = () => {
+    //console.log(this.form);
+    this.form
+      .validateFields()
+      .then(async (values) => {
+        // 1.隐藏弹框
+        this.setState({
+          isShowAdd: false,
+        });
+        // 2.发请求更新
+        const { roleName } = values;
 
-  updateRole = () => {};
+        const result = await reqAddRole(roleName);
+        if (result.status === 0) {
+          message.success("添加角色成功");
+          this.getRoles();
+        }
+      })
+      .catch((err) => {
+        //console.log(err);
+        message.error("添加角色失败");
+      });
+  };
+
+  updateRole = async() => {
+    this.setState({
+      isShowAuth: false
+    })
+    //console.log(this.auth.current.getMenus());
+    const menu = this.auth.current.getMenus();
+    const { role } = this.state;
+    role.menus = menu;
+    role.auth_name = memoryUtils.user.username;
+    role.auth_time = Date.now();
+    console.log(role);
+    const result = await reqUpdateRole(role);
+    if(result.status === 0){
+      message.success("更新成功");
+      this.getRoles();
+    }else{
+      message.error("更新失败");
+    }
+  };
 
   UNSAFE_componentWillMount() {
     this.initColums();
@@ -145,7 +194,7 @@ class Role extends Component {
           okText="确定"
           cancelText="取消"
         >
-          {/* <AuthForm ref={this.auth} role={role} /> */}
+          <AuthForm ref={this.auth} role={role} />
         </Modal>
       </Card>
     );

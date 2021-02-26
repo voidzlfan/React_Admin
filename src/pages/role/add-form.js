@@ -14,7 +14,7 @@ class AddForm extends Component {
     setForm: PropTypes.func.isRequired, // 用来传递form对象的函数
   };
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.setForm(this.formRef.current);
   }
 
@@ -26,12 +26,12 @@ class AddForm extends Component {
     };
 
     return (
-      <Form ref={this.formRef}>
+      <Form ref={this.formRef} scrollToFirstError>
         <Item
           label="角色名称"
           name="roleName"
           {...formItemLayout}
-          rules={[{ required: true, message: "请输入角色名称" }]}
+          rules={[{ required: true, message: "角色名称必须输入" }]}
         >
           <Input placeholder="请输入角色名称" />
         </Item>
