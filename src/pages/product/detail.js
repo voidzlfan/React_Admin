@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Card, Button, List, Image } from "antd";
+import { Card, Button, List, Image, Space } from "antd";
 import { LeftOutlined } from "@ant-design/icons";
 
 import { BASE_IMG_URL } from "../../utils/constants";
@@ -61,60 +61,56 @@ class ProductDetail extends Component {
 
     return (
       <Card title={title} className="product-detail">
-        <List
-          //   header={<div>Header</div>}
-          //   footer={<div>Footer</div>}
-          size="large"
-          bordered
-          //dataSource={data}
-          //renderItem={item => <List.Item>{item}</List.Item>}
-          grid={{
-            gutter: 16,
-            xs: 1,
-            sm: 2,
-            md: 4,
-            lg: 4,
-            xl: 6,
-            xxl: 3,
-          }}
-        >
+        <List bordered>
           <List.Item>
-            <span className="left">商品名称：</span>
-            <span>{name}</span>
+            <Space>
+              <span className="left">商品名称：</span>
+              <span>{name}</span>
+            </Space>
           </List.Item>
 
           <List.Item>
-            <span className="left">商品描述：</span>
-            <span>{desc}</span>
+            <Space>
+              <span className="left">商品描述：</span>
+              <span>{desc}</span>
+            </Space>
           </List.Item>
           <List.Item>
-            <span className="left">商品价格：</span>
-            <span>{price}</span>
+            <Space>
+              <span className="left">商品价格：</span>
+              <span>{price}</span>
+            </Space>
           </List.Item>
           <List.Item>
-            <span className="left">所属分类：</span>
-            <span>
-              {cName1} {cName2 ? " --> " + cName2 : ""}
-            </span>
+            <Space>
+              <span className="left">所属分类：</span>
+              <span>
+                {cName1} {cName2 ? " --> " + cName2 : ""}
+              </span>
+            </Space>
           </List.Item>
           <List.Item>
-            <span className="left">商品图片：</span>
-            {imgs.map((img) => (
-              <Image
-                key={img}
-                //className="product-img"
-                width={200}
-                alt="img"
-                src={BASE_IMG_URL + img}
-              />
-            ))}
+            <Space>
+              <span className="left">商品图片：</span>
+              {imgs.map((img) => (
+                <Image
+                  key={img}
+                  //className="product-img"
+                  width={200}
+                  alt="img"
+                  src={BASE_IMG_URL + img}
+                />
+              ))}
+            </Space>
           </List.Item>
           <List.Item>
-            <span className="left">商品详情：</span>
-            <span
-              dangerouslySetInnerHTML={{ __html: detail }}
-              className="product-detail-item"
-            ></span>
+            <Space>
+              <span className="left">商品详情：</span>
+              <span
+                dangerouslySetInnerHTML={{ __html: detail }}
+                className="product-detail-item"
+              ></span>
+            </Space>
           </List.Item>
         </List>
       </Card>

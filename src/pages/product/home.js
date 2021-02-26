@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Card, Select, Input, Button, Table, message } from "antd";
+import { Card, Select, Input, Button, Table, message, Space } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 
 import LinkButton from "../../components/link-button";
@@ -135,7 +135,7 @@ class ProductHome extends Component {
   render() {
     const { total, products, loading, searchName, searchType } = this.state;
     const title = (
-      <span>
+      <Space>
         <Select
           value={searchType}
           onChange={(value) => this.setState({ searchType: value })}
@@ -145,14 +145,13 @@ class ProductHome extends Component {
         </Select>
         <Input
           placeholder="请输入关键字"
-          style={{ width: 200, margin: "0 15px" }}
           value={searchName}
           onChange={(e) => this.setState({ searchName: e.target.value })}
         />
         <Button type="primary" onClick={() => this.getProducts(1)}>
           搜索
         </Button>
-      </span>
+      </Space>
     );
     const extra = (
       <Button
