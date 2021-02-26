@@ -8,11 +8,10 @@ import { PAGE_SIZE } from "../../utils/constants";
 
 import { reqRoles, reqAddRole, reqUpdateRole } from "../../api";
 
-import { user as memoryUtils } from '../../utils/memoryUtils' 
-import { formateDate } from '../../utils/dateUtils' 
+import { user as memoryUtils } from "../../utils/memoryUtils";
+import { formateDate } from "../../utils/dateUtils";
 
 class Role extends Component {
-
   auth = React.createRef();
 
   constructor(props) {
@@ -38,13 +37,13 @@ class Role extends Component {
         title: "创建时间",
         dataIndex: "create_time",
         key: "name",
-        render: formateDate
+        render: formateDate,
       },
       {
         title: "授权时间",
         dataIndex: "auth_time",
         key: "auth_time",
-        render: (create_time) => formateDate(create_time)
+        render: (create_time) => formateDate(create_time),
       },
       {
         title: "授权人",
@@ -86,7 +85,6 @@ class Role extends Component {
         });
         // 2.发请求更新
         const { roleName } = values;
-
         const result = await reqAddRole(roleName);
         if (result.status === 0) {
           message.success("添加角色成功");
@@ -99,10 +97,10 @@ class Role extends Component {
       });
   };
 
-  updateRole = async() => {
+  updateRole = async () => {
     this.setState({
-      isShowAuth: false
-    })
+      isShowAuth: false,
+    });
     //console.log(this.auth.current.getMenus());
     const menu = this.auth.current.getMenus();
     const { role } = this.state;
@@ -111,10 +109,10 @@ class Role extends Component {
     role.auth_time = Date.now();
     console.log(role);
     const result = await reqUpdateRole(role);
-    if(result.status === 0){
+    if (result.status === 0) {
       message.success("更新成功");
       this.getRoles();
-    }else{
+    } else {
       message.error("更新失败");
     }
   };
