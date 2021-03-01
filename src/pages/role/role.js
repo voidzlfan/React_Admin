@@ -9,6 +9,7 @@ import { PAGE_SIZE } from "../../utils/constants";
 import { reqRoles, reqAddRole, reqUpdateRole } from "../../api";
 
 import { user as memoryUtils } from "../../utils/memoryUtils";
+import { storage as storageUtils } from "../../utils/storageUtils";
 import { formateDate } from "../../utils/dateUtils";
 
 class Role extends Component {
@@ -110,8 +111,15 @@ class Role extends Component {
     console.log(role);
     const result = await reqUpdateRole(role);
     if (result.status === 0) {
-      message.success("更新成功");
-      this.getRoles();
+      if (role._id === memoryUtils.user.role_id) {
+        memoryUtils.user = {}
+        storageUtils.removeUser()
+        this.props.history.replace('/login')
+        message.success('当前用户角色权限成功，请重新登录')
+      } else {
+        message.success('设置角色权限成功')
+        this.getRoles();
+      }
     } else {
       message.error("更新失败");
     }

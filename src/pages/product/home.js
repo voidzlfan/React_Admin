@@ -173,6 +173,7 @@ class ProductHome extends Component {
           loading={loading}
           pagination={{
             total,
+            current: this.pageNum,
             defaultPageSize: PAGE_SIZE,
             showQuickJumper: true,
             onChange: (page, pageSize) => {

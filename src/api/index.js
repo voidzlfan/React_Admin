@@ -8,9 +8,6 @@ const BASE = '';
 export const reqLogin = (username, password) =>
   ajax('/login', { username, password }, 'POST');
 
-// 添加用户
-export const reqAddUser = (user) => ajax(BASE + '/login', user, 'POST');
-
 //jsonp请求天气
 export const reqWeather = () => {
   return new Promise((resolve, reject) => {
@@ -81,3 +78,11 @@ export const reqAddRole = (roleName) => ajax(BASE + '/manage/role/add', {roleNam
 // 角色授权更新
 export const reqUpdateRole = (role) => ajax(BASE + '/manage/role/update', role, 'POST')
 
+// 获取所有用户的列表
+export const reqUsers = () => ajax(BASE + '/manage/user/list')
+
+// 删除一个用户
+export const reqDeleteUser = (userId) => ajax(BASE + '/manage/user/delete', {userId}, 'POST')
+
+// 添加或者更新用户
+export const reqAddOrUpdateUser = (user) => ajax(BASE + '/manage/user/' + (user._id ? "update" : "add"), user, 'POST')
