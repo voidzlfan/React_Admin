@@ -9,6 +9,7 @@ import AddForm from "./add-form";
 import UpdateForm from "./update-form";
 
 import "./category.less";
+import { PAGE_SIZE } from "../../utils/constants";
 
 class Category extends Component {
   state = {
@@ -223,7 +224,7 @@ class Category extends Component {
           loading={loading}
           bordered
           rowKey="_id"
-          pagination={{ defaultPageSize: 5, showQuickJumper: true }}
+          pagination={{ defaultPageSize: PAGE_SIZE, showQuickJumper: true }}
         />
         {showStatus === 1 ? (
           <Modal

@@ -1,16 +1,9 @@
 import React, { Component } from "react";
-import {
-  Card,
-  Form,
-  Input,
-  Cascader,
-  Button,
-  message,
-} from "antd";
+import { Card, Form, Input, Cascader, Button, message, Space } from "antd";
 import { LeftOutlined } from "@ant-design/icons";
 
-import PicturesWall from './pictures-wall';
-import RichTextEdit from './rich-text-editor';
+import PicturesWall from "./pictures-wall";
+import RichTextEdit from "./rich-text-editor";
 
 import { reqCategorys, reqAddUpdateProduct } from "../../api";
 
@@ -25,11 +18,11 @@ class ProductAddUpdate extends Component {
     options: [],
   };
 
-  constructor (props) {
-    super(props)
+  constructor(props) {
+    super(props);
     // 创建用来保存ref标识的标签对象的容器
-    this.pw = React.createRef()
-    this.editor = React.createRef()
+    this.pw = React.createRef();
+    this.editor = React.createRef();
   }
 
   // 初始化options数组
@@ -117,36 +110,41 @@ class ProductAddUpdate extends Component {
     //console.log(value, selectedOptions);
   };
 
-  onFinish = async(values) => {
+  onFinish = async (values) => {
     // console.log(values);
     // console.log("img",this.pw.current.getImgs());
     // console.log("richTextEditor",this.editor.current.getDetail());
     const { name, desc, price, categoryIds } = values;
-    const imgs = this.pw.current.getImgs()
-    const detail = this.editor.current.getDetail()
+    const imgs = this.pw.current.getImgs();
+    const detail = this.editor.current.getDetail();
     let pCategoryId, categoryId;
-    if(categoryIds.length ===1){
-      pCategoryId = '0';
-      categoryId = categoryIds[0]
-    }else{
+    if (categoryIds.length === 1) {
+      pCategoryId = "0";
+      categoryId = categoryIds[0];
+    } else {
       pCategoryId = categoryIds[0];
       categoryId = categoryIds[1];
     }
 
     const product = {
-      name, desc, price, imgs, detail, pCategoryId, categoryId
-    }
-    if(this.isUpdate){
+      name,
+      desc,
+      price,
+      imgs,
+      detail,
+      pCategoryId,
+      categoryId,
+    };
+    if (this.isUpdate) {
       product._id = this.product._id;
     }
     const result = await reqAddUpdateProduct(product);
-    if(result.status === 0){
-      message.success(`${this.isUpdate?'更新':'添加'}商品成功`)
-      this.props.history.goBack()
-    }else{
-      message.error(`${this.isUpdate?'更新':'添加'}商品失败`)
+    if (result.status === 0) {
+      message.success(`${this.isUpdate ? "更新" : "添加"}商品成功`);
+      this.props.history.goBack();
+    } else {
+      message.error(`${this.isUpdate ? "更新" : "添加"}商品失败`);
     }
-
   };
 
   UNSAFE_componentWillMount() {
@@ -185,14 +183,14 @@ class ProductAddUpdate extends Component {
     };
 
     const title = (
-      <span>
+      <Space>
         <Button
+          type="link"
           icon={<LeftOutlined />}
-          style={{ marginRight: 15 }}
           onClick={() => this.props.history.goBack()}
         ></Button>
         <span>{isUpdate ? "修改商品" : "添加商品"}</span>
-      </span>
+      </Space>
     );
 
     return (
@@ -258,10 +256,10 @@ class ProductAddUpdate extends Component {
             />
           </Item>
           <Item label="商品图片">
-            <PicturesWall ref={this.pw} imgs={product.imgs}/>
+            <PicturesWall ref={this.pw} imgs={product.imgs} />
           </Item>
           <Item label="商品详情">
-            <RichTextEdit ref={this.editor} detail={product.detail}/>
+            <RichTextEdit ref={this.editor} detail={product.detail} />
           </Item>
           <Item>
             <Button type="primary" htmlType="submit">
