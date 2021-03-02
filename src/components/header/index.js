@@ -8,8 +8,9 @@ import menuList from '../../config/menuConfig'
 
 import { Modal } from 'antd';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
-
 import LinkButton from '../link-button'
+
+import { connect } from "react-redux";
 
 import "./index.less";
 
@@ -84,7 +85,9 @@ class Header extends Component {
   render() {
     const { currentTime, weather } = this.state;
     const username = memoryUtils.user.username;
-    const title = this.getTitle();
+    //const title = this.getTitle();
+    const title = this.props.headerTitle; // redux 管理
+
 
     return (
       <div className="header">
@@ -107,4 +110,8 @@ class Header extends Component {
     );
   }
 }
-export default withRouter(Header);
+
+export default connect(
+  state => ({headerTitle: state.headerTitle}),
+  {}
+)(withRouter(Header));

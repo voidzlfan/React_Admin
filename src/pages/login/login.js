@@ -31,7 +31,7 @@ class Login extends Component {
 
       storageUtils.saveUser(user);
 
-      this.props.history.replace('/')
+      this.props.history.replace('/home')
       console.log("请求成功", result);
 
     }else{

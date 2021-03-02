@@ -1,14 +1,13 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
+import { Menu } from "antd";
 
 import aurolite from "../../assets/images/aurolite.png";
 import "./index.less";
-
-import { Menu } from "antd";
-
 import menuList from "../../config/menuConfig";
-
 import { user as memoryUtils } from "../../utils/memoryUtils";
+import { connect } from "react-redux";
+import { setHeaderTitle } from "../../redux/actions";
 
 const { SubMenu } = Menu;
 
@@ -56,9 +55,20 @@ class LeftNav extends Component {
       if (this.hasAuth(item)) {
         // 向pre添加<Menu.Item>
         if (!item.children) {
+
+          //判读item是否当前item，更新redux headerTitle
+          if(item.key === path || path.indexOf(item.key) === 0){
+            this.props.setHeaderTitle(item.title)
+          }
+
           pre.push(
             <Menu.Item key={item.key} icon={item.icon}>
-              <Link to={item.key}>{item.title}</Link>
+              <Link
+                to={item.key}
+                onClick={() => this.props.setHeaderTitle(item.title)}
+              >
+                {item.title}
+              </Link>
             </Menu.Item>
           );
         } else {
@@ -110,4 +120,6 @@ class LeftNav extends Component {
   }
 }
 
-export default withRouter(LeftNav);
+export default connect((state) => ({}), { setHeaderTitle })(
+  withRouter(LeftNav)
+);
