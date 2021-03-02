@@ -5,7 +5,6 @@ import { Menu } from "antd";
 import aurolite from "../../assets/images/aurolite.png";
 import "./index.less";
 import menuList from "../../config/menuConfig";
-import { user as memoryUtils } from "../../utils/memoryUtils";
 import { connect } from "react-redux";
 import { setHeaderTitle } from "../../redux/actions";
 
@@ -27,8 +26,8 @@ class LeftNav extends Component {
   hasAuth = (item) => {
     const { key, isPublic } = item;
 
-    const menus = memoryUtils.user.role.menus;
-    const username = memoryUtils.user.username;
+    const menus = this.props.user.role.menus;
+    const username = this.props.user.username;
     /*
     1. 如果当前用户是admin
     2. 如果当前item是公开的
@@ -120,6 +119,6 @@ class LeftNav extends Component {
   }
 }
 
-export default connect((state) => ({}), { setHeaderTitle })(
+export default connect((state) => ({user: state.user}), { setHeaderTitle })(
   withRouter(LeftNav)
 );
