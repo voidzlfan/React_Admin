@@ -13,6 +13,7 @@ class Bar extends Component {
   };
 
   update = () => {
+    this.setState({spin: true});
     this.setState((state) => ({
       sales: state.sales.map((sale) => sale + 1),
       stores: state.stores.reduce((pre, store) => {
@@ -20,6 +21,7 @@ class Bar extends Component {
         return pre;
       }, []),
     }));
+    
   };
 
   /*

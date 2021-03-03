@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Card, Button } from "antd";
 import ReactEcharts from "echarts-for-react";
+import { SyncOutlined } from "@ant-design/icons";
 
 /*
 后台管理的折线图路由组件
@@ -57,7 +58,7 @@ class Line extends Component {
     return (
       <div>
         <Card>
-          <Button type="primary" onClick={this.update}>
+          <Button type="primary" onClick={this.update} icon={<SyncOutlined />}>
             更新
           </Button>
         </Card>
