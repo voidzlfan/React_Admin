@@ -169,6 +169,7 @@ class Category extends Component {
         const result = await reqUpdateCategory({ parentId, categoryName });
         if (result.status === 0) {
           // 3.重新显示列表
+          message.success("修改分类名称成功")
           this.getCategorys();
         }
       })
@@ -226,38 +227,36 @@ class Category extends Component {
           rowKey="_id"
           pagination={{ defaultPageSize: PAGE_SIZE, showQuickJumper: true }}
         />
-        {showStatus === 1 ? (
-          <Modal
-            title="添加分类"
-            visible={showStatus === 1}
-            onOk={this.addCategory}
-            onCancel={this.handleCancel}
-            okText="确定"
-            cancelText="取消"
-          >
-            <AddForm
-              categorys={categorys}
-              parentId={parentId}
-              setForm={(form) => (this.form = form)}
-            />
-          </Modal>
-        ) : null}
+        <Modal
+          title="添加分类"
+          visible={showStatus === 1}
+          onOk={this.addCategory}
+          onCancel={this.handleCancel}
+          okText="确定"
+          cancelText="取消"
+          destroyOnClose
+        >
+          <AddForm
+            categorys={categorys}
+            parentId={parentId}
+            setForm={(form) => (this.form = form)}
+          />
+        </Modal>
 
-        {showStatus === 2 ? (
-          <Modal
-            title="更新分类"
-            visible={showStatus === 2}
-            onOk={this.updateCategory}
-            onCancel={this.handleCancel}
-            okText="确定"
-            cancelText="取消"
-          >
-            <UpdateForm
-              categoryName={category.name}
-              setForm={(form) => (this.form = form)}
-            />
-          </Modal>
-        ) : null}
+        <Modal
+          title="更新分类"
+          visible={showStatus === 2}
+          onOk={this.updateCategory}
+          onCancel={this.handleCancel}
+          okText="确定"
+          cancelText="取消"
+          destroyOnClose
+        >
+          <UpdateForm
+            categoryName={category.name}
+            setForm={(form) => (this.form = form)}
+          />
+        </Modal>
       </Card>
     );
   }

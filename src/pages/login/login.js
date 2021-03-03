@@ -25,9 +25,9 @@ class Login extends Component {
   };
 
   onFinishFailed = (values, errorFields, outOfDate) => {
-    console.log(values);
-    console.log(errorFields);
-    console.log(outOfDate);
+    // console.log(values);
+    // console.log(errorFields);
+    // console.log(outOfDate);
   };
 
   render() {
@@ -60,7 +60,7 @@ class Login extends Component {
                 { required: true, max: 12, message: "最大12位" },
                 {
                   pattern: /^[a-zA-Z0-9_]+$/,
-                  message: "必须是英文、数字或下划线组成",
+                  message: "用户名必须是英文、数字或下划线组成",
                 },
               ]}
             >
@@ -72,7 +72,7 @@ class Login extends Component {
             <Form.Item
               name="password"
               rules={[
-                { required: true, message: "Please input your Password!" },
+                { required: true, message: "必须输入密码" },
               ]}
             >
               <Input

@@ -107,7 +107,7 @@ class Role extends Component {
     role.menus = menu;
     role.auth_name = this.props.user.username;
     role.auth_time = Date.now();
-    console.log(role);
+    //console.log(role);
     const result = await reqUpdateRole(role);
     if (result.status === 0) {
       if (role._id === this.props.user.role_id) {
