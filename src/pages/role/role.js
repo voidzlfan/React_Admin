@@ -184,6 +184,7 @@ class Role extends Component {
           }}
           okText="确定"
           cancelText="取消"
+          destroyOnClose
         >
           <AddForm setForm={(form) => (this.form = form)} />
         </Modal>
@@ -197,6 +198,7 @@ class Role extends Component {
           }}
           okText="确定"
           cancelText="取消"
+          destroyOnClose
         >
           <AuthForm ref={this.auth} role={role} />
         </Modal>
