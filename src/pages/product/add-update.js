@@ -171,7 +171,7 @@ class ProductAddUpdate extends Component {
     const categoryIds = [];
     if (isUpdate) {
       if (product.pCategoryId === "0") {
-        categoryIds.push(product.pCategoryId);
+        categoryIds.push(product.categoryId);
       } else {
         categoryIds.push(product.pCategoryId);
         categoryIds.push(product.categoryId);

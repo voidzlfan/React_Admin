@@ -2,15 +2,14 @@ import React, { Component } from "react";
 import { Card, Button, Table, Space, Modal, message } from "antd";
 import AddForm from "./add-form";
 import AuthForm from "./auth-form";
-
+import { connect } from "react-redux";
 import { PlusOutlined } from "@ant-design/icons";
+
 import { PAGE_SIZE } from "../../utils/constants";
-
 import { reqRoles, reqAddRole, reqUpdateRole } from "../../api";
-
-import { user as memoryUtils } from "../../utils/memoryUtils";
-import { storage as storageUtils } from "../../utils/storageUtils";
 import { formateDate } from "../../utils/dateUtils";
+import { logout } from "../../redux/actions";
+
 
 class Role extends Component {
   auth = React.createRef();
@@ -106,15 +105,14 @@ class Role extends Component {
     const menu = this.auth.current.getMenus();
     const { role } = this.state;
     role.menus = menu;
-    role.auth_name = memoryUtils.user.username;
+    role.auth_name = this.props.user.username;
     role.auth_time = Date.now();
-    console.log(role);
+    //console.log(role);
     const result = await reqUpdateRole(role);
     if (result.status === 0) {
-      if (role._id === memoryUtils.user.role_id) {
-        memoryUtils.user = {}
-        storageUtils.removeUser()
-        this.props.history.replace('/login')
+      if (role._id === this.props.user.role_id) {
+        // 退出登录
+        this.props.logout();
         message.success('当前用户角色权限成功，请重新登录')
       } else {
         message.success('设置角色权限成功')
@@ -186,6 +184,7 @@ class Role extends Component {
           }}
           okText="确定"
           cancelText="取消"
+          destroyOnClose
         >
           <AddForm setForm={(form) => (this.form = form)} />
         </Modal>
@@ -199,6 +198,7 @@ class Role extends Component {
           }}
           okText="确定"
           cancelText="取消"
+          destroyOnClose
         >
           <AuthForm ref={this.auth} role={role} />
         </Modal>
@@ -207,4 +207,7 @@ class Role extends Component {
   }
 }
 
-export default Role;
+export default connect(
+  state => ({user: state.user}),
+  {logout}
+)(Role);

@@ -1,16 +1,16 @@
 import React, { Component } from "react";
-
-import { Form, Input, Button, message } from "antd";
+import { Form, Input, Button } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
-
 import { Redirect } from 'react-router-dom'
 
 import "./login.less";
-import logo from "../../assets/images/logo.png";
+import logo from "../../assets/images/aurolite.png";
 
-import { reqLogin } from "../../api";
-import { user as memoryUtils } from '../../utils/memoryUtils'
-import { storage as storageUtils} from '../../utils/storageUtils'
+// import { reqLogin } from "../../api";
+// import { user as memoryUtils } from '../../utils/memoryUtils';
+// import { storage as storageUtils} from '../../utils/storageUtils';
+import { connect } from "react-redux";
+import { login } from "../../redux/actions";
 
 
 class Login extends Component {
@@ -21,47 +21,29 @@ class Login extends Component {
 
   onFinish = async(values) => {
     const { username, password } = values;
-    const result = await reqLogin(username, password);
-    //console.log("请求成功", result);
-
-    if(result.status===0){
-      message.success('登录成功')
-      const user = result.data;
-      memoryUtils.user = user;
-
-      storageUtils.saveUser(user);
-
-      this.props.history.replace('/')
-      console.log("请求成功", result);
-
-    }else{
-      message.error(result.msg);
-      console.log("请求失败", result);
-    }
-
-
-    //console.log('Received values of form: ', values);
+    this.props.login(username, password);
   };
 
   onFinishFailed = (values, errorFields, outOfDate) => {
-    console.log(values);
-    console.log(errorFields);
-    console.log(outOfDate);
+    // console.log(values);
+    // console.log(errorFields);
+    // console.log(outOfDate);
   };
 
   render() {
-    const user = memoryUtils.user
+    const user = this.props.user;
     if(user && user._id ){
-      return <Redirect to="/"></Redirect>
+      return <Redirect to="/home"></Redirect>
     }
 
     return (
       <div className="login">
         <header className="login-header">
           <img src={logo} alt="logo" />
-          <h1>奥莱React项目：后台管理系统</h1>
+          <h1>奥莱后台管理系统</h1>
         </header>
         <section className="login-content">
+          <div className={user.errMsg ? 'error-msg show' : 'error-msg'}>{user.errMsg}</div>
           <h2>用户登录</h2>
           <Form
             name="normal_login"
@@ -78,7 +60,7 @@ class Login extends Component {
                 { required: true, max: 12, message: "最大12位" },
                 {
                   pattern: /^[a-zA-Z0-9_]+$/,
-                  message: "必须是英文、数字或下划线组成",
+                  message: "用户名必须是英文、数字或下划线组成",
                 },
               ]}
             >
@@ -90,7 +72,7 @@ class Login extends Component {
             <Form.Item
               name="password"
               rules={[
-                { required: true, message: "Please input your Password!" },
+                { required: true, message: "必须输入密码" },
               ]}
             >
               <Input
@@ -115,4 +97,7 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default connect(
+  state => ({user: state.user}),
+  {login}
+)(Login);
